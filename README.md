@@ -3,4 +3,7 @@
 
 usage: ./elfhook target.so
 
+elfhook是通过dlopen与dlsym获取system函数执行shell命令。
+elfhook_syscall是通过fork和execve的系统调用方式运行sh来执行shell命令。
 
+target.so是程序用来hook的so库
