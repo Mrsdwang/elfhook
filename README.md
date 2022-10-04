@@ -3,4 +3,4 @@
 
 usage: ./elfhook target.so
 
-![image](https://user-images.githubusercontent.com/55396347/192754575-f0d48592-b356-406e-92f8-30455d7a71d0.png)
+
